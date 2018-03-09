@@ -1,5 +1,7 @@
 package nl.yacht.lagodimolveno;
 
+import java.util.List;
+
 public class Ingredient {
     private String name;
     private boolean isAllergen;
@@ -56,7 +58,20 @@ public class Ingredient {
     public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
     }
+
     //endregion
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "name='" + name + '\'' +
+                ", isAllergen=" + isAllergen +
+                ", isInStock=" + isInStock +
+                ", distributor=" + distributor +
+                ", numberOfStock=" + numberOfStock +
+                ", costPrice=" + costPrice +
+                '}';
+    }
 
     public Ingredient(String name, boolean isAllergen, boolean isInStock, Distributor distributor, int numberOfStock, double costPrice) {
         this.name = name;

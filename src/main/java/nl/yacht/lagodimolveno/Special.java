@@ -31,6 +31,7 @@ public class Special {
     public void setPrice(double price) {
         this.price = price;
     }
+
     //endregion
 
     public Special(String name, List<Dish> dishes, double price) {

@@ -1,5 +1,7 @@
 package nl.yacht.lagodimolveno;
 
+import java.util.List;
+
 public class Drink {
     private String name;
     private String description;
@@ -48,7 +50,19 @@ public class Drink {
     public void setPrice(double price) {
         this.price = price;
     }
+
     //endregion
+
+    @Override
+    public String toString() {
+        return "Drink{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", isHot=" + isHot +
+                ", containsAlcohol=" + containsAlcohol +
+                ", price=" + price +
+                '}';
+    }
 
     public Drink(String name, String description, boolean isHot, boolean containsAlcohol, double price) {
         this.name = name;

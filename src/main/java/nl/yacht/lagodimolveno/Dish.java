@@ -67,7 +67,21 @@ public class Dish {
     public void setIngredientAvailable(boolean ingredientAvailable) {
         isIngredientAvailable = ingredientAvailable;
     }
+
     //endregion
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", ingredients=" + ingredients +
+                ", price=" + price +
+                ", courseType=" + courseType +
+                ", dishType=" + dishType +
+                ", isIngredientAvailable=" + isIngredientAvailable +
+                '}';
+    }
 
     public Dish(String name, String description, List<Ingredient> ingredients, double price, CourseType courseType, DishType dishType, boolean isIngredientAvailable) {
         this.name = name;
