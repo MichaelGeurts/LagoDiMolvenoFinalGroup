@@ -1,13 +1,12 @@
 package nl.yacht.lagodimolveno;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GenerateTestData {
 
     public static void generate(){
-        AllLists a = new AllLists();
+        Restaurant a = new Restaurant();
         a.initAllLists();
         generateDrinkList(a);
         generateIngredientList(a);
@@ -15,7 +14,7 @@ public class GenerateTestData {
         sumSomeCosts(a);
     }
 
-    public static void generateDrinkList(AllLists a){
+    public static void generateDrinkList(Restaurant a){
 
         for (int i = 1; i < 21; i++){
             int testint = 1;
@@ -36,7 +35,7 @@ public class GenerateTestData {
         }
     }
 
-    public static void generateDishList(AllLists a){
+    public static void generateDishList(Restaurant a){
 
         for (int i = 1; i < 21; i++){
             Dish d = new Dish("Dish nummer" + i,"Andere beschrijving",a.getIngredientList(),
@@ -50,7 +49,7 @@ public class GenerateTestData {
         }
     }
 
-    public static void generateIngredientList(AllLists a){
+    public static void generateIngredientList(Restaurant a){
         for (int i = 1; i < 21; i++){
             int testint = 1;
             boolean isAllergen = false;
@@ -70,7 +69,7 @@ public class GenerateTestData {
         }
     }
 
-    public static void sumSomeCosts(AllLists a){
+    public static void sumSomeCosts(Restaurant a){
         sum(a.getIngredientList());
         sum(a.getDishList());
         sum(a.getDrinkList());

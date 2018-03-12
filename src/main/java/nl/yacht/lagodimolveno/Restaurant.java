@@ -3,16 +3,16 @@ package nl.yacht.lagodimolveno;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllLists {
+public class Restaurant {
 
-    private   List<Drink> drinkList;
-    private  List<Dish> dishList;
-    private  List<Ingredient> ingredientList;
-    private List<Special> specialList;
-    private List<Order> orderList;
+    private static List<Drink> drinkList;
+    private static List<Dish> dishList;
+    private static List<Ingredient> ingredientList;
+    private static List<Special> specialList;
+    private static List<Order> orderList;
 
     //region getters and setters
-    public List<Drink> getDrinkList() {
+    public static List<Drink> getDrinkList() {
         return drinkList;
     }
 
@@ -20,7 +20,7 @@ public class AllLists {
         this.drinkList = drinkList;
     }
 
-    public List<Dish> getDishList() {
+    public static List<Dish> getDishList() {
         return dishList;
     }
 
@@ -28,7 +28,7 @@ public class AllLists {
         this.dishList = dishList;
     }
 
-    public List<Ingredient> getIngredientList() {
+    public static List<Ingredient> getIngredientList() {
         return ingredientList;
     }
 
@@ -36,7 +36,7 @@ public class AllLists {
         this.ingredientList = ingredientList;
     }
 
-    public List<Special> getSpecialList() {
+    public static List<Special> getSpecialList() {
         return specialList;
     }
 
@@ -44,7 +44,7 @@ public class AllLists {
         this.specialList = specialList;
     }
 
-    public List<Order> getOrderList() {
+    public static List<Order> getOrderList() {
         return orderList;
     }
 
@@ -53,7 +53,7 @@ public class AllLists {
     }
     //endregion
 
-    public void initAllLists(){
+    public void initAllLists() {
         drinkList = new ArrayList<>();
         dishList = new ArrayList<>();
         ingredientList = new ArrayList<>();
@@ -61,4 +61,7 @@ public class AllLists {
         orderList = new ArrayList<>();
     }
 
+    public static void addSpecialToList(Special s){
+        specialList.add(s);
+    }
 }
