@@ -5,12 +5,20 @@ import java.util.List;
 
 public class Restaurant {
 
+<<<<<<< HEAD:src/main/java/nl/yacht/lagodimolveno/AllLists.java
+    private List<Drink> drinkList;
+    private List<Dish> dishList;
+    private List<Ingredient> ingredientList;
+    private List<Special> specialList;
+    private  static List<Order> orderList;
+=======
     private static List<Drink> drinkList;
     private static List<Dish> dishList;
     private static List<Ingredient> ingredientList;
     private static List <Reservation> reservationList;
     private static List<Special> specialList;
     private static List<Order> orderList;
+>>>>>>> 6f0d91798d7e795c74cab2c5cf1cb8461e48b1ad:src/main/java/nl/yacht/lagodimolveno/Restaurant.java
 
     //region getters and setters
     public static List<Drink> getDrinkList() {
