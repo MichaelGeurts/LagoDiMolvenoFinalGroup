@@ -5,9 +5,12 @@ import java.util.List;
 public class Drink {
     private String name;
     private String description;
+    private int drinkStock;
     private boolean isHot;
     private boolean containsAlcohol;
+    private boolean isAvailable;
     private double price;
+
     //potentieel een lijst met ingredienten ivm cocktail (als private var)
 
     //region getters and setters
@@ -51,6 +54,14 @@ public class Drink {
         this.price = price;
     }
 
+    public boolean getIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
     //endregion
 
     @Override
@@ -61,14 +72,29 @@ public class Drink {
                 ", isHot=" + isHot +
                 ", containsAlcohol=" + containsAlcohol +
                 ", price=" + price +
+                ", drinkStock=" + drinkStock +
+                ", isAvailable=" + isAvailable +
                 '}';
     }
 
-    public Drink(String name, String description, boolean isHot, boolean containsAlcohol, double price) {
+    public Drink(String name, String description, boolean isHot, boolean containsAlcohol, double price, int stock) {
         this.name = name;
         this.description = description;
         this.isHot = isHot;
         this.containsAlcohol = containsAlcohol;
         this.price = price;
+        this.drinkStock = stock;
+
+        Restaurant.getDrinkList().add(this);
+    }
+
+    public boolean isDrinkAvailable(Drink drink){
+        boolean result = true;
+        for(Drink d : Restaurant.getDrinkList()){
+            if(d.equals(drink)){
+                result = d.isAvailable;
+            }
+        }
+        return result;
     }
 }

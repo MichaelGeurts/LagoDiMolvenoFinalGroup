@@ -8,7 +8,7 @@ public class Restaurant {
     private static List<Drink> drinkList;
     private static List<Dish> dishList;
     private static List<Ingredient> ingredientList;
-    private static List <Reservation> reservationList;
+    private static List<Reservation> reservationList;
     private static List<Special> specialList;
     private static List<Order> orderList;
     private static List<Table> tableList;
@@ -80,7 +80,7 @@ public class Restaurant {
         orderList = new ArrayList<>();
     }
 
-    public static void addSpecialToList(Special s){
+    public static void addSpecialToList(Special s) {
         specialList.add(s);
     }
 }

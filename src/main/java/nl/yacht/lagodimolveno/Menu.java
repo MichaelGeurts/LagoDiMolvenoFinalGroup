@@ -3,20 +3,11 @@ package nl.yacht.lagodimolveno;
 import java.util.List;
 
 public class Menu {
-    private boolean isAvailable;
     private List<Drink> drinks;
     private List<Dish> dishes;
     private List<Special> specials;
 
     //region getters and setters
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
     public List<Drink> getDrinks() {
         return drinks;
     }
@@ -42,29 +33,18 @@ public class Menu {
     }
     //endregion
 
-    public Menu(boolean isAvailable, List<Drink> drinks, List<Dish> dishes, List<Special> specials) {
-        this.isAvailable = isAvailable;
+    public Menu(List<Drink> drinks, List<Dish> dishes, List<Special> specials) {
         this.drinks = drinks;
         this.dishes = dishes;
         this.specials = specials;
     }
 
     public boolean isDishAvailable(Dish dish){
-        boolean result = true;
-
-
-
-
-
-
-
-
-        return result;
+        return  dish.isIngredientAvailable();
     }
 
     public boolean isDrinkAvailable(Drink drink){
-        //logica maken
-        return true;
+        return drink.isDrinkAvailable(drink);
     }
 
     public void editDishMenu(List<Dish> dishes){
