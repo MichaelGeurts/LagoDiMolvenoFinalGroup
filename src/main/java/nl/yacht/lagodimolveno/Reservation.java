@@ -1,11 +1,13 @@
 package nl.yacht.lagodimolveno;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Reservation {
     private LocalDateTime reservationTime;
     private int numberOfPeople;
     private Guest guest;
+//  private String reasonOfCancel;
 
     //region getters and setters
     public LocalDateTime getReservationTime() {
@@ -37,33 +39,29 @@ public class Reservation {
         this.reservationTime = reservationTime;
         this.numberOfPeople = numberOfPeople;
         this.guest = guest;
+
+        // voeg deze reservatie toe aan lijst van reservaties
+        Restaurant.getReservationList().add(this);
+
+        List<Table> tableList =
     }
 
     public void cancel(String reason, Guest guest) {
 
-        // for guest =
-        for (guest, reservationTime, numberOfPeople == guest, reservationTime, numberOfPeople) {
+        List<Reservation> reservationList = Restaurant.getReservationList();
 
-
-
-            // Voor gast, reserveringstijd en aantalmensen ==
-            if (reason == null) {
-
-
-            else
-
-
+        // Go through the list of reservations
+        for (Reservation res : reservationList) {
+            int index = 0;
+            if (guest.equals(res.guest)) {
+                reservationList.remove(index);
             }
-        // ittereer door een lijst van reservaties
-        // voor elke reservatie, is de reserveerder gelijk aan guest
-        // haal reservatie uit lijst.
-        //
+            index++;
+            // Gaat in de lijst verder zoeken index +1
 
+        }
 
-        // Reden geven
-
-
-        // Komt nog een Reservations<List> bij
+        // evt reden geven met  reasonOfCancel;
 
 
     }

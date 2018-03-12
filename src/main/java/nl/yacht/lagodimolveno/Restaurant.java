@@ -8,6 +8,7 @@ public class Restaurant {
     private static List<Drink> drinkList;
     private static List<Dish> dishList;
     private static List<Ingredient> ingredientList;
+    private static List <Reservation> reservationList;
     private static List<Special> specialList;
     private static List<Order> orderList;
     private static List<Table> tableList;
@@ -35,6 +36,14 @@ public class Restaurant {
 
     public void setIngredientList(List<Ingredient> ingredientList) {
         this.ingredientList = ingredientList;
+    }
+
+    public static List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
     }
 
     public static List<Special> getSpecialList() {
@@ -66,6 +75,7 @@ public class Restaurant {
         drinkList = new ArrayList<>();
         dishList = new ArrayList<>();
         ingredientList = new ArrayList<>();
+        reservationList = new ArrayList<>();
         specialList = new ArrayList<>();
         orderList = new ArrayList<>();
     }
