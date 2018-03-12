@@ -50,8 +50,16 @@ public class Menu {
     }
 
     public boolean isDishAvailable(Dish dish){
-        //logica maken
-        return true;
+        boolean result = true;
+
+
+
+
+
+
+
+
+        return result;
     }
 
     public boolean isDrinkAvailable(Drink drink){

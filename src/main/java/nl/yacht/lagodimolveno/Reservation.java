@@ -39,7 +39,32 @@ public class Reservation {
         this.guest = guest;
     }
 
-    public void cancel(String reason){
-        //logica hier
+    public void cancel(String reason, Guest guest) {
+
+        // for guest =
+        for (guest, reservationTime, numberOfPeople == guest, reservationTime, numberOfPeople) {
+
+
+
+            // Voor gast, reserveringstijd en aantalmensen ==
+            if (reason == null) {
+
+
+            else
+
+
+            }
+        // ittereer door een lijst van reservaties
+        // voor elke reservatie, is de reserveerder gelijk aan guest
+        // haal reservatie uit lijst.
+        //
+
+
+        // Reden geven
+
+
+        // Komt nog een Reservations<List> bij
+
+
     }
 }
