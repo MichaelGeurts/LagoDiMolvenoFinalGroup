@@ -5,11 +5,11 @@ import java.util.List;
 
 public class AllLists {
 
-    private   List<Drink> drinkList;
-    private  List<Dish> dishList;
-    private  List<Ingredient> ingredientList;
+    private List<Drink> drinkList;
+    private List<Dish> dishList;
+    private List<Ingredient> ingredientList;
     private List<Special> specialList;
-    private List<Order> orderList;
+    private  static List<Order> orderList;
 
     //region getters and setters
     public List<Drink> getDrinkList() {
@@ -44,7 +44,7 @@ public class AllLists {
         this.specialList = specialList;
     }
 
-    public List<Order> getOrderList() {
+    public static List<Order> getOrderList() {
         return orderList;
     }
 
@@ -53,7 +53,7 @@ public class AllLists {
     }
     //endregion
 
-    public void initAllLists(){
+    public void initAllLists() {
         drinkList = new ArrayList<>();
         dishList = new ArrayList<>();
         ingredientList = new ArrayList<>();
