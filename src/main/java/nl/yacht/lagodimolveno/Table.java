@@ -35,5 +35,6 @@ public class Table {
         this.tableNumber = tableNumber;
         this.numberOfSeats = numberOfSeats;
         this.isAvailable = isAvailable;
+
     }
 }

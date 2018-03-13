@@ -8,7 +8,6 @@ public class Drink {
     private int drinkStock;
     private boolean isHot;
     private boolean containsAlcohol;
-    private boolean isAvailable;
     private double price;
 
     //potentieel een lijst met ingredienten ivm cocktail (als private var)
@@ -54,12 +53,12 @@ public class Drink {
         this.price = price;
     }
 
-    public boolean getIsAvailable() {
-        return isAvailable;
+    public int getDrinkStock() {
+        return drinkStock;
     }
 
-    public void setIsAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public void setDrinkStock(int drinkStock) {
+        this.drinkStock = drinkStock;
     }
 
     //endregion
@@ -73,7 +72,6 @@ public class Drink {
                 ", containsAlcohol=" + containsAlcohol +
                 ", price=" + price +
                 ", drinkStock=" + drinkStock +
-                ", isAvailable=" + isAvailable +
                 '}';
     }
 

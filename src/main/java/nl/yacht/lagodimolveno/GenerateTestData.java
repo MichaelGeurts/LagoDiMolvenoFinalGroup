@@ -52,14 +52,10 @@ public class GenerateTestData {
         for (int i = 1; i < 21; i++){
             int testint = 1;
             boolean isAllergen = false;
-            boolean isInStock = false;
             if(new Random().nextInt(2) == testint){
                 isAllergen = true;
             }
-            if(new Random().nextInt(2) == testint){
-                isInStock = true;
-            }
-            Ingredient in = new Ingredient("Ingredient nummer" + i, isAllergen,isInStock, null, new Random().nextInt(100), new Random().nextInt(i)+1);
+            Ingredient in = new Ingredient("Ingredient nummer" + i, isAllergen, null, new Random().nextInt(100), new Random().nextInt(i)+1);
             a.getIngredientList().add(in);
         }
 

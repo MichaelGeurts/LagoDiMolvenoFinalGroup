@@ -80,15 +80,131 @@ public class Restaurant {
         orderList = new ArrayList<>();
     }
 
+    //region AddToList
     public static void addSpecialToList(Special s) {
         specialList.add(s);
     }
 
-    public static void addDrinkToList(Drink d){
+    public static void addDrinkToList(Drink d) {
         drinkList.add(d);
     }
 
-    public static void addDishToList(Dish d){
+    public static void addDishToList(Dish d) {
         dishList.add(d);
+    }
+
+    public static void addIngredientToList(Ingredient i) {
+        ingredientList.add(i);
+    }
+
+    public static void addTableToList(Table t) {
+        tableList.add(t);
+    }
+
+    public static void addOrderToList(Order o) {
+        orderList.add(o);
+    }
+
+    public static void addReservationToList(Reservation r) {
+        reservationList.add(r);
+    }
+    //endregion
+    //region RemoveFromList
+    public static void removeSpecialFromList(Special s) {
+        int index = 0;
+        for (Special special : specialList) {
+            if (special.getName().equals(s.getName())) {
+                specialList.remove(index);
+            }
+            index++;
+        }
+    }
+
+    public static void removeDrinkFromList(Drink d) {
+        int index = 0;
+        for (Drink drink : drinkList) {
+            if (drink.getName().equals(d.getName())) {
+                drinkList.remove(index);
+            }
+            index++;
+        }
+    }
+
+    public static void removeDishFromList(Dish d) {
+        int index = 0;
+        for (Dish dish : dishList) {
+            if (dish.getName().equals(d.getName())) {
+                dishList.remove(index);
+            }
+            index++;
+        }
+    }
+
+    public static void removeIngredientFromList(Ingredient i) {
+        int index = 0;
+        for (Ingredient ingredient : ingredientList) {
+            if (ingredient.getName().equals(i.getName())) {
+                ingredientList.remove(index);
+            }
+            index++;
+        }
+    }
+
+    public static void removeTableFromList(Table t) {
+        int index = 0;
+        for (Table table : tableList) {
+            if (table.getTableNumber() == t.getTableNumber()) {
+                tableList.remove(index);
+            }
+            index++;
+        }
+    }
+
+    public static void removeOrderFromList(Order o) {
+        int index = 0;
+        for (Order order : orderList) {
+            if (order.getGuest().getName().equals(o.getGuest().getName()) && order.getTableNumber() == o.getTableNumber()) {
+                orderList.remove(index);
+            }
+            index++;
+        }
+    }
+
+    public static void removeReservationFromList(Reservation r) {
+        int index = 0;
+        for (Reservation reservation : reservationList) {
+            if (reservation.getGuest().getName().equals(r.getGuest().getName())) {
+                reservationList.remove(index);
+            }
+            index++;
+        }
+    }
+    //endregion
+
+    public static boolean isDrinkAvailable(Drink d) {
+        for (Drink drink : drinkList) {
+            if (drink.equals(d) && drink.getDrinkStock() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isIngredientAvailable(Ingredient i) {
+        for (Ingredient ingredient : ingredientList) {
+            if (ingredient.equals(i) && ingredient.getNumberOfStock() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isDishAvailable(Dish d) {
+        for (Ingredient i : d.getIngredients()) {
+            if (!isIngredientAvailable(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

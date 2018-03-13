@@ -5,7 +5,6 @@ import java.util.List;
 public class Ingredient {
     private String name;
     private boolean isAllergen;
-    private boolean isInStock;
     private Distributor distributor;
     private int numberOfStock;
     private double costPrice;
@@ -25,14 +24,6 @@ public class Ingredient {
 
     public void setAllergen(boolean allergen) {
         isAllergen = allergen;
-    }
-
-    public boolean isInStock() {
-        return isInStock;
-    }
-
-    public void setInStock(boolean inStock) {
-        isInStock = inStock;
     }
 
     public Distributor getDistributor() {
@@ -66,24 +57,19 @@ public class Ingredient {
         return "Ingredient{" +
                 "name='" + name + '\'' +
                 ", isAllergen=" + isAllergen +
-                ", isInStock=" + isInStock +
                 ", distributor=" + distributor +
                 ", numberOfStock=" + numberOfStock +
                 ", costPrice=" + costPrice +
                 '}';
     }
 
-    public Ingredient(String name, boolean isAllergen, boolean isInStock, Distributor distributor, int numberOfStock, double costPrice) {
+    public Ingredient(String name, boolean isAllergen, Distributor distributor, int numberOfStock, double costPrice) {
         this.name = name;
         this.isAllergen = isAllergen;
-        this.isInStock = isInStock;
         this.distributor = distributor;
         this.numberOfStock = numberOfStock;
         this.costPrice = costPrice;
-    }
 
-    public boolean isThereStock(Ingredient ingredient){
-        //logica hier
-        return true;
+        Restaurant.addIngredientToList(this);
     }
 }
