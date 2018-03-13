@@ -91,5 +91,7 @@ public class Dish {
         this.courseType = courseType;
         this.dishType = dishType;
         this.isIngredientAvailable = isIngredientAvailable;
+
+        Restaurant.addDishToList(this);
     }
 }
