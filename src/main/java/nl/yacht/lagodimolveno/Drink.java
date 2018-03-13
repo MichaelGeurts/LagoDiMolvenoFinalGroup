@@ -85,16 +85,6 @@ public class Drink {
         this.price = price;
         this.drinkStock = stock;
 
-        Restaurant.getDrinkList().add(this);
-    }
-
-    public boolean isDrinkAvailable(Drink drink){
-        boolean result = true;
-        for(Drink d : Restaurant.getDrinkList()){
-            if(d.equals(drink)){
-                result = d.isAvailable;
-            }
-        }
-        return result;
+        Restaurant.addDrinkToList(this);
     }
 }

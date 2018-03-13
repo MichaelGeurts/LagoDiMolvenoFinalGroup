@@ -44,7 +44,7 @@ public class Menu {
     }
 
     public boolean isDrinkAvailable(Drink drink){
-        return drink.isDrinkAvailable(drink);
+        return false;
     }
 
     public void editDishMenu(List<Dish> dishes){

@@ -83,4 +83,12 @@ public class Restaurant {
     public static void addSpecialToList(Special s) {
         specialList.add(s);
     }
+
+    public static void addDrinkToList(Drink d){
+        drinkList.add(d);
+    }
+
+    public static void addDishToList(Dish d){
+        dishList.add(d);
+    }
 }

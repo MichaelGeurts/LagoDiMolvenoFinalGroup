@@ -8,7 +8,7 @@ public class GenerateTestData {
     public static void generate(){
         Restaurant a = new Restaurant();
         a.initAllLists();
-        generateDrinkList(a);
+       generateDrinkList(a);
         generateIngredientList(a);
         generateDishList(a);
         sumSomeCosts(a);
@@ -26,8 +26,7 @@ public class GenerateTestData {
             if(new Random().nextInt(2) == testint){
                 ishot = true;
             }
-            Drink d = new Drink("Drank nummer" + i, "Hier komt beschrijving", ishot, isalcohol, new Random().nextInt(i)+1);
-            a.getDrinkList().add(d);
+            Drink d = new Drink("Drank nummer" + i, "Hier komt beschrijving", ishot, isalcohol, new Random().nextInt(i)+1, new Random().nextInt(i)+1 );
         }
 
         for(Drink d : a.getDrinkList()){

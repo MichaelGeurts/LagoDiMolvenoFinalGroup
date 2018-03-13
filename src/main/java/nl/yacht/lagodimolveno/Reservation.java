@@ -76,6 +76,7 @@ public class Reservation {
                 for (Table tabl : Restaurant.getTableList()) {
                     if (tabl.getTableNumber() == res.tableNumber) {
                         tabl.setAvailable(true);
+                        //
                     }
                 }
             }
