@@ -9,7 +9,6 @@ public class Reservation {
     private int numberOfPeople;
     private Guest guest;
     private int tableNumber;
-//  private String reasonOfCancel;
 
     //region getters and setters
     public LocalDateTime getReservationTime() {
@@ -57,18 +56,20 @@ public class Reservation {
         for (Table tabl : tableList) {
             if (tabl.isAvailable()) {
                 tabl.setAvailable(false);
+
                 this.tableNumber = tabl.getTableNumber();
             }
         }
         Restaurant.getReservationList().add(this);
     }
 
-    public void cancel(String reason, Guest guest) {
+    public void cancel(Guest guest) {
+
 
         List<Reservation> reservationList = Restaurant.getReservationList();
         // Go through the list of reservations
+        int index = 0;
         for (Reservation res : reservationList) {
-            int index = 0;
             if (guest.equals(res.guest)) {
                 reservationList.remove(index);
 
@@ -78,11 +79,11 @@ public class Reservation {
                         tabl.setAvailable(true);
                     }
                 }
+
             }
             index++;
             // Gaat in de lijst verder zoeken index +1
         }
     }
-    // evt reden geven met  reasonOfCancel;
 }
 
