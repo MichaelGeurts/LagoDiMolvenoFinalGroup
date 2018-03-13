@@ -71,15 +71,6 @@ public class Restaurant {
     }
     //endregion
 
-    public void initAllLists() {
-        drinkList = new ArrayList<>();
-        dishList = new ArrayList<>();
-        ingredientList = new ArrayList<>();
-        reservationList = new ArrayList<>();
-        specialList = new ArrayList<>();
-        orderList = new ArrayList<>();
-    }
-
     //region AddToList
     public static void addSpecialToList(Special s) {
         specialList.add(s);
@@ -109,6 +100,7 @@ public class Restaurant {
         reservationList.add(r);
     }
     //endregion
+
     //region RemoveFromList
     public static void removeSpecialFromList(Special s) {
         int index = 0;
@@ -181,9 +173,18 @@ public class Restaurant {
     }
     //endregion
 
+    public void initAllLists() {
+        drinkList = new ArrayList<>();
+        dishList = new ArrayList<>();
+        ingredientList = new ArrayList<>();
+        reservationList = new ArrayList<>();
+        specialList = new ArrayList<>();
+        orderList = new ArrayList<>();
+    }
+
     public static boolean isDrinkAvailable(Drink d) {
         for (Drink drink : drinkList) {
-            if (drink.equals(d) && drink.getDrinkStock() > 0) {
+            if (drink.getName().equals(d.getName()) && drink.getDrinkStock() > 0) {
                 return true;
             }
         }
@@ -192,7 +193,7 @@ public class Restaurant {
 
     public static boolean isIngredientAvailable(Ingredient i) {
         for (Ingredient ingredient : ingredientList) {
-            if (ingredient.equals(i) && ingredient.getNumberOfStock() > 0) {
+            if (ingredient.getName().equals(i.getName()) && ingredient.getNumberOfStock() > 0) {
                 return true;
             }
         }
