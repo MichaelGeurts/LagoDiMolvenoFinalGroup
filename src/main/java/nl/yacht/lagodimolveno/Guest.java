@@ -54,29 +54,23 @@ public class Guest {
         new Order(drinks, dishes, specials, tableNumber, guest);
     }
 
-    public void payBill(Order order) {
+    public void payBill(int tableNumber, Guest g) {
         double totalPrice = 0.00;
-        for (Dish dishes : order.getDishes()) {
-            totalPrice += dishes.getPrice();
-        }
-        for (Drink drinks : order.getDrinks()) {
-            totalPrice += drinks.getPrice();
-        }
-        for (Special specials : order.getSpecials()) {
-            totalPrice += specials.getPrice();
-        }
-        order.setPaid(true);
-        order.freeTable(order);
-    }
-
-    public void getCorrectOrder(int tableNumber, Guest g) {
-
         for (Order correctOrder : Restaurant.getOrderList()) {
-
             if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g) {
-                payBill(correctOrder);
+                for (Dish dishes : correctOrder.getDishes()) {
+                    totalPrice += dishes.getPrice();
+                }
+                for (Drink drinks : correctOrder.getDrinks()) {
+                    totalPrice += drinks.getPrice();
+                }
+                for (Special specials : correctOrder.getSpecials()) {
+                    totalPrice += specials.getPrice();
+                }
+                correctOrder.setPaid(true);
+                //correctOrder.freeTable(correctOrder); Wordt verplaatst naar Restaurant
             }
         }
     }
-
 }
+

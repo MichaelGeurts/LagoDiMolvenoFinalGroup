@@ -69,19 +69,121 @@ public class Order {
         this.guest = guest;
     }
 
-    // kan ook zijn dat dit een int wordt, ligt eraan of wij deze gaan returnen
-    public void sum(List<Drink> drinks, List<Dish> dishes, List<Special> specials){
+    public void addDrinktoOrder(int tableNumber, Guest g, Drink drink){
+
+        for (Order correctOrder: Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equals(g.getName())){
+                correctOrder.getDrinks().add(drink);
+            }
+        }
 
     }
 
-    public void cancel(){
-        //logica hier
+    public void removeDrinkFromOrder(int tableNumber, Guest g, Drink drink, int amountOfDrinks){
+
+        for (Order correctOrder: Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
+
+                int index = 0;
+                int drinksCounter = 0;
+                LOOP: for (Drink drinks : correctOrder.getDrinks()) {
+                    if (drink.equals(drinks));{
+                        correctOrder.getDrinks().remove(index);
+                        drinksCounter++;
+                        if(drinksCounter==amountOfDrinks){
+                            break LOOP;
+                        }
+                    }
+                }
+            }
+        }
     }
-    
+
+    public void changeDrinkFromOrder(int tableNumber, Guest g, Drink drinkToAdd, Drink drinkToRemove, int amountOfDrinks){
+
+        for (Order correctOrder: Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
+
+                int index = 0;
+                int drinksCounter = 0;
+                LOOP: for (Drink drinks : correctOrder.getDrinks()) {
+                    if (drinkToRemove.equals(drinks));{
+                        correctOrder.getDrinks().set(index, drinkToAdd);
+                        drinksCounter++;
+                        if(drinksCounter==amountOfDrinks){
+                            break LOOP;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    /*
+     *  Hieronder is oude code
+     *  Wordt nog aangepast op basis van de eerste 3 methodes
+     */
+
+
+
+
+
+    public void addDish(int tableNumber, Guest g, Dish dish){
+
+        for (Order correctOrder: Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
+                correctOrder.getDishes().add(dish);
+            }
+        }
+
+    }
+
+    public void removeDish(int tableNumber, Guest g, Dish dish){
+
+        for (Order correctOrder: Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
+                correctOrder.getDishes().remove(dish);
+            }
+        }
+
+    }
+
+    public void addSpecial(int tableNumber, Guest g, Special special){
+
+        for (Order correctOrder: Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
+                correctOrder.getSpecials().add(special);
+            }
+        }
+
+    }
+
+    public void removeSpecial(int tableNumber, Guest g, Special special){
+
+        for (Order correctOrder: Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
+                correctOrder.getSpecials().remove(special);
+            }
+        }
+
+    }
+
+    public void cancel(int tableNumber, Guest g){
+
+        for (Order correctOrder: Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
+                Restaurant.getOrderList().remove(correctOrder);
+            }
+        }
+
+    }
+
+    //Naar restaurant
     public void freeTable(Order order){
 
         for (Table correctTable: Restaurant.getTableList()) {
-            if(correctTable.getTableNumber() == order.getTableNumber()){
+            if(correctTable.getTableNumber() == order.getTableNumber() && isPaid()){
                 correctTable.setAvailable(true);
             }
         }
