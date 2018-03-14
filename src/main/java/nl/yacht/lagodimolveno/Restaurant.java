@@ -180,6 +180,7 @@ public class Restaurant {
         reservationList = new ArrayList<>();
         specialList = new ArrayList<>();
         orderList = new ArrayList<>();
+        tableList =new ArrayList<>();
     }
 
     public static boolean isDrinkAvailable(Drink d) {

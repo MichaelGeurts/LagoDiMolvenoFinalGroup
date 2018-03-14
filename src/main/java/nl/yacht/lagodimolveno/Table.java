@@ -35,6 +35,15 @@ public class Table {
         this.tableNumber = tableNumber;
         this.numberOfSeats = numberOfSeats;
         this.isAvailable = isAvailable;
+        Restaurant.addTableToList(this);
+    }
 
+    @Override
+    public String toString() {
+        return "Table{" +
+                "tableNumber=" + tableNumber +
+                ", numberOfSeats=" + numberOfSeats +
+                ", isAvailable=" + isAvailable +
+                '}';
     }
 }
