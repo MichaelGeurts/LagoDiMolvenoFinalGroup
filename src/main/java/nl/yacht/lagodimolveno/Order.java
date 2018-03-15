@@ -67,126 +67,267 @@ public class Order {
         this.specials = specials;
         this.tableNumber = tableNumber;
         this.guest = guest;
+        Restaurant.addOrderToList(this);
     }
 
-    public void addDrinktoOrder(int tableNumber, Guest g, Drink drink){
+    //Juiste Order object getter aan de hand van tablenumber en Guest g
+    public void findOrderToCancel(int tableNumber, Guest g) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                cancelOrder(correctOrder);
+            }
+        }
+    }
+    //Cancel Order methode. Nog geen funcionaliteit voor aanpassen stock ingredienten voor dishes en specials
+    public void cancelOrder(Order myOrder) {
+        removeDrinkStock(myOrder.getDrinks());
+        removeDishStock(myOrder.getDishes());
+        removeSpecialStock(myOrder.getSpecials());
 
-        for (Order correctOrder: Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equals(g.getName())){
-                correctOrder.getDrinks().add(drink);
+        int index = 0;
+        for (Order orderToCancel:Restaurant.getOrderList()) {
+            if(orderToCancel.equals(myOrder)){
+                Restaurant.getOrderList().remove(index);
+                index++;
             }
         }
 
     }
-
-    public void removeDrinkFromOrder(int tableNumber, Guest g, Drink drink, int amountOfDrinks){
-
-        for (Order correctOrder: Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
-
-                int index = 0;
-                int drinksCounter = 0;
-                LOOP: for (Drink drinks : correctOrder.getDrinks()) {
-                    if (drink.equals(drinks));{
-                        correctOrder.getDrinks().remove(index);
-                        drinksCounter++;
-                        if(drinksCounter==amountOfDrinks){
-                            break LOOP;
-                        }
-                    }
+    //Remove Drink change Stock
+    private void removeDrinkStock(List<Drink> drinks) {
+        for (Drink drink :drinks) {
+            drink.setDrinkStock(drink.getDrinkStock() + 1);
+        }
+    }
+    //Remove Dish change Stock
+    private void removeDishStock(List<Dish> dishes) {
+        for (Dish dish :dishes) {
+            for (Ingredient ingredients:dish.getIngredients()) {
+                ingredients.setNumberOfStock(ingredients.getNumberOfStock()+1);
+                //+1 == Hoeveelheid ingredient in recept.
+            }
+        }
+    }
+    //Remove Special change Stock
+    private void removeSpecialStock(List<Special> specials) {
+        for (Special special :specials) {
+            for (Dish dish:special.getDishes()) {
+                for (Ingredient ingredients:dish.getIngredients()) {
+                    ingredients.setNumberOfStock(ingredients.getNumberOfStock()+1);
+                    //+1 == Hoeveelheid ingredient in recept.
                 }
             }
         }
     }
-
-    public void changeDrinkFromOrder(int tableNumber, Guest g, Drink drinkToAdd, Drink drinkToRemove, int amountOfDrinks){
-
-        for (Order correctOrder: Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
-
-                int index = 0;
-                int drinksCounter = 0;
-                LOOP: for (Drink drinks : correctOrder.getDrinks()) {
-                    if (drinkToRemove.equals(drinks));{
-                        correctOrder.getDrinks().set(index, drinkToAdd);
-                        drinksCounter++;
-                        if(drinksCounter==amountOfDrinks){
-                            break LOOP;
-                        }
-                    }
+    //Add Drink change Stock
+    private void addDrinkStock(List<Drink> drinks) {
+        for (Drink drink :drinks) {
+            drink.setDrinkStock(drink.getDrinkStock()-1);
+        }
+    }
+    //Add Dish change Stock
+    private void addDishStock(List<Dish> dishes) {
+        for (Dish dish :dishes) {
+            for (Ingredient ingredients:dish.getIngredients()) {
+                ingredients.setNumberOfStock(ingredients.getNumberOfStock()-1);
+                //+1 == Hoeveelheid ingredient in recept.
+            }
+        }
+    }
+    //Add Special change Stock
+    private void addSpecialStock(List<Special> specials) {
+        for (Special special :specials) {
+            for (Dish dish:special.getDishes()) {
+                for (Ingredient ingredients:dish.getIngredients()) {
+                    ingredients.setNumberOfStock(ingredients.getNumberOfStock()-1);
+                    //+1 == Hoeveelheid ingredient in recept.
                 }
             }
         }
     }
+    /*
+     * Hieronder staan de Drankjes
+     */
 
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Drink die toegevoegd moet worden.
+    public void findOrderToAddDrinkTo(int tableNumber, Guest g, Drink drinkToAdd) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                addDrinkToOrder(correctOrder, drinkToAdd);
+            }
+        }
+    }
+    //Add Drink to Order
+    public void addDrinkToOrder(Order myOrder, Drink drinkToAdd) {
+        myOrder.getDrinks().add(drinkToAdd);
+        addDrinkStock(myOrder.getDrinks());
+    }
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Drink die verwijderd moet worden en aantal te verwijderen.
+    public void findOrderToRemoveDrinkFrom(int tableNumber, Guest g, Drink drinkToAdd, int amountToRemove) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                removeDrinkFromOrder(correctOrder, drinkToAdd, amountToRemove);
+            }
+        }
+    }
+    //Remove a certain amount of Drink from order
+    public void removeDrinkFromOrder(Order myOrder, Drink drinkToRemove, int amountToRemove) {
+        for (int i = 0; i < amountToRemove; i++) {
+            int index = 0;
+            for (Drink drink : myOrder.getDrinks()) {
+                if (drinkToRemove.equals(drink)) {
+                    myOrder.getDrinks().remove(index);
+                    break;
+                }
+                index++;
+            }
+        }
+        drinkToRemove.setDrinkStock(drinkToRemove.getDrinkStock() + amountToRemove);
+    }
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Drink toe te voegen, Drink te verwijderen, aantal te veranderen.
+    public void findOrderToChangeDrinkIn(int tableNumber, Guest g, Drink drinkToAdd, Drink drinkToRemove, int amountToChange) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                changeDrinkInOrder(correctOrder, drinkToAdd, drinkToRemove, amountToChange);
+            }
+        }
+    }
+    //Change a certain amount of Drink in Order
+    public void changeDrinkInOrder(Order myOrder, Drink drinkToAdd, Drink drinkToRemove, int amountToChange) {
+        for (int i = 0; i < amountToChange; i++) {
+            int index = 0;
+            for (Drink drink : myOrder.getDrinks()) {
+                if (drinkToRemove.equals(drink)) {
+                    myOrder.getDrinks().remove(index);
+                    drinkToRemove.setDrinkStock(drinkToRemove.getDrinkStock() + 1);
+                    myOrder.getDrinks().add(drinkToAdd);
+                    drinkToAdd.setDrinkStock(drinkToAdd.getDrinkStock() - 1);
+                    break;
+                }
+                index++;
+            }
+        }
+    }
 
     /*
-     *  Hieronder is oude code
-     *  Wordt nog aangepast op basis van de eerste 3 methodes
+     * Hieronder staan de Dishes
      */
 
 
-
-
-
-    public void addDish(int tableNumber, Guest g, Dish dish){
-
-        for (Order correctOrder: Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
-                correctOrder.getDishes().add(dish);
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Dish die toegevoegd moet worden.
+    public void findOrderToAddDishTo(int tableNumber, Guest g, Dish dishToAdd) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                addDrinkToOrder(correctOrder, dishToAdd);
             }
         }
-
     }
-
-    public void removeDish(int tableNumber, Guest g, Dish dish){
-
-        for (Order correctOrder: Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
-                correctOrder.getDishes().remove(dish);
+    //Add Dish to Order
+    public void addDrinkToOrder(Order myOrder, Dish dishToAdd) {
+        myOrder.getDishes().add(dishToAdd);
+        addDishStock(myOrder.getDishes());
+    }
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Dish die verwijderd moet worden.
+    public void findOrderToRemoveDishFrom(int tableNumber, Guest g, Dish dishToAdd) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                removeDrinkFromOrder(correctOrder, dishToAdd);
             }
         }
-
     }
-
-    public void addSpecial(int tableNumber, Guest g, Special special){
-
-        for (Order correctOrder: Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
-                correctOrder.getSpecials().add(special);
+    //Remove a Dish from order
+    public void removeDrinkFromOrder(Order myOrder, Dish dishToRemove) {
+            int index = 0;
+            for (Dish dish : myOrder.getDishes()) {
+                if (dishToRemove.equals(dish)) {
+                    myOrder.getDrinks().remove(index);
+                    break;
+                }
+                index++;
+            }
+        removeDishStock(myOrder.getDishes());
+    }
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Dish toe te voegen, Dish te verwijderen.
+    public void findOrderToChangeDishIn(int tableNumber, Guest g, Dish dishToAdd, Dish dishToRemove) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                changeDishInOrder(correctOrder, dishToAdd, dishToRemove);
             }
         }
-
+    }
+    //Change a Dish in Order
+    public void changeDishInOrder(Order myOrder, Dish dishToAdd, Dish dishToRemove) {
+            int index = 0;
+            for (Dish dish : myOrder.getDishes()) {
+                if (dishToRemove.equals(dish)) {
+                    myOrder.getDishes().remove(index);
+                    removeDishStock(myOrder.getDishes());
+                    myOrder.getDishes().add(dishToAdd);
+                    addDishStock(myOrder.getDishes());
+                    break;
+                }
+                index++;
+            }
     }
 
-    public void removeSpecial(int tableNumber, Guest g, Special special){
+    /*
+     * Hieronder staan de Specials
+     */
 
-        for (Order correctOrder: Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
-                correctOrder.getSpecials().remove(special);
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Special die toegevoegd moet worden.
+    public void findSpecialToAddSpecialTo(int tableNumber, Guest g, Special specialToAdd) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                addSpecialToOrder(correctOrder, specialToAdd);
             }
         }
-
     }
-
-    public void cancel(int tableNumber, Guest g){
-
-        for (Order correctOrder: Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest() == g){
-                Restaurant.getOrderList().remove(correctOrder);
+    //Add Special to Order
+    public void addSpecialToOrder(Order myOrder, Special specialToAdd) {
+        myOrder.getSpecials().add(specialToAdd);
+        addSpecialStock(myOrder.getSpecials());
+    }
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Special die verwijderd moet worden.
+        public void findSpecialToRemoveSpecialFrom(int tableNumber, Guest g, Special specialToAdd) {
+            for (Order correctOrder : Restaurant.getOrderList()) {
+                if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                    removeSpecialFromOrder(correctOrder, specialToAdd);
+                }
             }
         }
-
+    //Remove a Special from order
+    public void removeSpecialFromOrder(Order myOrder, Special specialToRemove) {
+        int index = 0;
+        for (Special special : myOrder.getSpecials()) {
+            if (specialToRemove.equals(special)) {
+                myOrder.getSpecials().remove(index);
+                break;
+            }
+            index++;
+        }
+        myOrder.removeSpecialStock(myOrder.getSpecials());
     }
-
-    //Naar restaurant
-    public void freeTable(Order order){
-
-        for (Table correctTable: Restaurant.getTableList()) {
-            if(correctTable.getTableNumber() == order.getTableNumber() && isPaid()){
-                correctTable.setAvailable(true);
+    //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Special toe te voegen, Special te verwijderen.
+    public void findOrderToChangeSpecialIn(int tableNumber, Guest g, Special specialToAdd, Special specialToRemove) {
+        for (Order correctOrder : Restaurant.getOrderList()) {
+            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                changeSpecialInOrder(correctOrder, specialToAdd, specialToRemove);
             }
         }
-        
     }
+    //Change a Special in Order
+    public void changeSpecialInOrder(Order myOrder, Special specialToAdd, Special specialToRemove) {
+        int index = 0;
+        for (Special special : myOrder.getSpecials()) {
+            if (specialToRemove.equals(special)) {
+                myOrder.getSpecials().remove(index);
+                removeSpecialStock(myOrder.getSpecials());
+                myOrder.getSpecials().add(specialToAdd);
+                addSpecialStock(myOrder.getSpecials());
+                break;
+            }
+            index++;
+        }
+    }
+
 }
