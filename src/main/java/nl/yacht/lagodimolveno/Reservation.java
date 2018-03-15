@@ -49,22 +49,30 @@ public class Reservation {
         this.numberOfPeople = numberOfPeople;
         this.guest = guest;
 
+        if (numberOfPeople == 2 || numberOfPeople == 4 || numberOfPeople == 6) {
+            checkNumberOfPeople(numberOfPeople);
+        } else if (numberOfPeople == 8) {
+            checkNumberOfPeople(8);
+        } else if (numberOfPeople < 8) {
+            checkNumberOfPeople(numberOfPeople + 1);
+        }
+    }
+
+    private void checkNumberOfPeople(int numberOfPeople) {
         // Adds reservation to list of reservations
         List<Table> tableList = Restaurant.getTableList();
 
-        // Finds tables in the list, checks if available and sets false to reserve a table
         for (Table tabl : tableList) {
-            if (tabl.isAvailable()) {
+            if (tabl.isAvailable() && tabl.getNumberOfSeats() == numberOfPeople) {
                 tabl.setAvailable(false);
-
                 this.tableNumber = tabl.getTableNumber();
             }
         }
-        Restaurant.getReservationList().add(this);
+        Restaurant.getReservationList().
+                add(this);
     }
 
     public void cancel(Guest guest) {
-
 
         List<Reservation> reservationList = Restaurant.getReservationList();
         // Go through the list of reservations
@@ -80,10 +88,8 @@ public class Reservation {
                         //
                     }
                 }
-
             }
             index++;
-            // Gaat in de lijst verder zoeken index +1
         }
     }
 

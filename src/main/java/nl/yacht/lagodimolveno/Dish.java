@@ -94,4 +94,14 @@ public class Dish {
 
         Restaurant.addDishToList(this);
     }
+
+    public boolean hasAllergen(Dish dish) {
+        for (Ingredient ingredient : ingredients) {
+            if (ingredient.isAllergen()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+

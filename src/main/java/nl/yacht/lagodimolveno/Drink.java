@@ -9,8 +9,8 @@ public class Drink {
     private boolean isHot;
     private boolean containsAlcohol;
     private double price;
+    private boolean isDrinkAvailable;
 
-    //potentieel een lijst met ingredienten ivm cocktail (als private var)
 
     //region getters and setters
     public String getName() {
@@ -61,6 +61,10 @@ public class Drink {
         this.drinkStock = drinkStock;
     }
 
+    public boolean isDrinkAvailable() {
+        return isDrinkAvailable;
+    }
+
     //endregion
 
     @Override
@@ -72,17 +76,21 @@ public class Drink {
                 ", containsAlcohol=" + containsAlcohol +
                 ", price=" + price +
                 ", drinkStock=" + drinkStock +
+                ", isDrinkAvailable=" + isDrinkAvailable +
                 '}';
     }
 
-    public Drink(String name, String description, boolean isHot, boolean containsAlcohol, double price, int stock) {
+    public Drink(String name, String description, boolean isHot, boolean containsAlcohol, double price, int stock, boolean isDrinkAvailable) {
         this.name = name;
         this.description = description;
         this.isHot = isHot;
         this.containsAlcohol = containsAlcohol;
         this.price = price;
         this.drinkStock = stock;
+        this.isDrinkAvailable = isDrinkAvailable;
 
         Restaurant.addDrinkToList(this);
     }
+
+
 }
