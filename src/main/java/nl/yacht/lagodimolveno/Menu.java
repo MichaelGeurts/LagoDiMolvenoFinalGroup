@@ -101,10 +101,6 @@ public class Menu {
      * Vanuit menu door lijst dishes heen
      * dish moet functie bevatten = dish allergen (boolean)
      * kan die alleen weten door aan eigen lijst te vragen of allergen is
-     *
-     *
-     * @param dish
-     * @return
      */
     //Order by course type      MAIN,STARTER,DESSERT;
 
