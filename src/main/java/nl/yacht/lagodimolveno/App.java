@@ -72,7 +72,7 @@ public class App {
         System.out.println("We voegen het " + dishesFromRestaurant.get(4).getName() + " toe");
         s.addDishToSpecial(s,dishesFromRestaurant.get(4));
         System.out.println("");
-        System.out.println("Nu bevat het gerecht de volgende ingredienten: ");
+        System.out.println("Nu bevat het gerecht de volgende gerechten: ");
         for(Dish d : s.getDishes()){
             System.out.println(d.getName());
         }
