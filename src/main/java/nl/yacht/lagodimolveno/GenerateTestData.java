@@ -25,7 +25,7 @@ public class GenerateTestData {
         for(int i = 1; i < 10; i++){
             int testint = new Random().nextInt(4) + 1;
             int numberOfPerson = new Random().nextInt(8) + 1;
-            Reservation res = new Reservation(LocalDateTime.now(), numberOfPerson, new Guest("Gereserveerde " + i, "061000000000", false, false););
+            Reservation res = new Reservation(LocalDate.now(), numberOfPerson, new Guest("Gereserveerde " + i, "061000000000", false, false));
         }
 
         for(Reservation r : a.getReservationList()){
@@ -65,13 +65,13 @@ public class GenerateTestData {
     }
 
     private static void generateTableList(Restaurant a) {
-        for (int i = 1; i < 101; i++) {
+        for (int i = 1; i < 50; i++) {
             int testint = new Random().nextInt(4) + 1;
             int numberOfSeats = 0;
-            boolean isOccupied = false;
+            boolean isOccupied = true;
 
-            if (new Random().nextInt(2) == 1) {
-                isOccupied = true;
+            if (new Random().nextInt(3) == 1) {
+                isOccupied = false;
             }
 
             switch (testint) {
@@ -108,7 +108,7 @@ public class GenerateTestData {
             if (new Random().nextInt(2) == testint) {
                 ishot = true;
             }
-            Drink d = new Drink("Drank nummer" + i, "Hier komt beschrijving", ishot, isalcohol, new Random().nextInt(i) + 1, new Random().nextInt(i) + 1);
+            Drink d = new Drink("Drank nummer" + i, "Hier komt beschrijving", ishot, isalcohol, new Random().nextInt(i) + 1, new Random().nextInt(i) + 1, true);
         }
 
         for (Drink d : a.getDrinkList()) {
