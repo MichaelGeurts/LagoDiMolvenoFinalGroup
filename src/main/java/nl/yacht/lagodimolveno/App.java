@@ -101,6 +101,7 @@ public class App {
     }
     //endregion
 
+    //region Petri
     private static void methodeDemoPetri(Restaurant restaurant) {
         Guest g = new Guest("Petri", "0624896715", false, false);
         Reservation res = makeReservation(g, 3);
@@ -255,4 +256,5 @@ public class App {
         }
         return returnToOrderDrinks;
     }
+    //endregion
 }
