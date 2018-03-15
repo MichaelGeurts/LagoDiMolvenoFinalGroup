@@ -89,10 +89,10 @@ public class App {
         System.out.println("");
         editIngredient(d, ingredientsFromRestaurant);
         System.out.println("");
-        removeIngredient(d, ingredientsFromRestaurant);
+        removeIngredient(d);
     }
 
-    private static void removeIngredient(Dish d, List<Ingredient> ingredientsFromRestaurant) {
+    private static void removeIngredient(Dish d) {
         System.out.println("We verwijderen het " + d.getIngredients().get(0).getName());
         d.editIngredient(d,d.getIngredients().get(0), null);
         System.out.println("");
@@ -209,10 +209,10 @@ public class App {
         printOrder(order);
         toevoegen(restaurant, order);
         wijzigen(restaurant, order);
-        verwijderen(restaurant, order);
+        verwijderen(order);
     }
 
-    private static void verwijderen(Restaurant restaurant, Order order) {
+    private static void verwijderen(Order order) {
         System.out.println("Er wordt 1 drankje verwijderd van de order namelijk: " + order.getDrinks().get(0).getName());
         order.removeDrinkFromOrder(order,order.getDrinks().get(0),1 );
         printOrder(order);
@@ -367,3 +367,4 @@ public class App {
     }
     //endregion
 }
+
