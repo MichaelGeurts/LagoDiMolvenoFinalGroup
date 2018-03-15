@@ -80,9 +80,10 @@ public class Order {
     }
     //Cancel Order methode. Nog geen funcionaliteit voor aanpassen stock ingredienten voor dishes en specials
     public void cancelOrder(Order myOrder) {
-        for (Drink drink : myOrder.getDrinks()) {
-            drink.setDrinkStock(drink.getDrinkStock() + 1);
-        }
+        removeDrinkStock(myOrder.getDrinks());
+        removeDishStock(myOrder.getDishes());
+        removeSpecialStock(myOrder.getSpecials());
+
         int index = 0;
         for (Order orderToCancel:Restaurant.getOrderList()) {
             if(orderToCancel.equals(myOrder)){
@@ -90,8 +91,60 @@ public class Order {
                 index++;
             }
         }
-    }
 
+    }
+    //Remove Drink change Stock
+    private void removeDrinkStock(List<Drink> drinks) {
+        for (Drink drink :drinks) {
+            drink.setDrinkStock(drink.getDrinkStock() + 1);
+        }
+    }
+    //Remove Dish change Stock
+    private void removeDishStock(List<Dish> dishes) {
+        for (Dish dish :dishes) {
+            for (Ingredient ingredients:dish.getIngredients()) {
+                ingredients.setNumberOfStock(ingredients.getNumberOfStock()+1);
+                //+1 == Hoeveelheid ingredient in recept.
+            }
+        }
+    }
+    //Remove Special change Stock
+    private void removeSpecialStock(List<Special> specials) {
+        for (Special special :specials) {
+            for (Dish dish:special.getDishes()) {
+                for (Ingredient ingredients:dish.getIngredients()) {
+                    ingredients.setNumberOfStock(ingredients.getNumberOfStock()+1);
+                    //+1 == Hoeveelheid ingredient in recept.
+                }
+            }
+        }
+    }
+    //Add Drink change Stock
+    private void addDrinkStock(List<Drink> drinks) {
+        for (Drink drink :drinks) {
+            drink.setDrinkStock(drink.getDrinkStock()-1);
+        }
+    }
+    //Add Dish change Stock
+    private void addDishStock(List<Dish> dishes) {
+        for (Dish dish :dishes) {
+            for (Ingredient ingredients:dish.getIngredients()) {
+                ingredients.setNumberOfStock(ingredients.getNumberOfStock()-1);
+                //+1 == Hoeveelheid ingredient in recept.
+            }
+        }
+    }
+    //Add Special change Stock
+    private void addSpecialStock(List<Special> specials) {
+        for (Special special :specials) {
+            for (Dish dish:special.getDishes()) {
+                for (Ingredient ingredients:dish.getIngredients()) {
+                    ingredients.setNumberOfStock(ingredients.getNumberOfStock()-1);
+                    //+1 == Hoeveelheid ingredient in recept.
+                }
+            }
+        }
+    }
     /*
      * Hieronder staan de Drankjes
      */
@@ -107,7 +160,7 @@ public class Order {
     //Add Drink to Order
     public void addDrinkToOrder(Order myOrder, Drink drinkToAdd) {
         myOrder.getDrinks().add(drinkToAdd);
-        drinkToAdd.setDrinkStock(drinkToAdd.getDrinkStock() - 1);
+        addDrinkStock(myOrder.getDrinks());
     }
     //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Drink die verwijderd moet worden en aantal te verwijderen.
     public void findOrderToRemoveDrinkFrom(int tableNumber, Guest g, Drink drinkToAdd, int amountToRemove) {
@@ -172,7 +225,7 @@ public class Order {
     //Add Dish to Order
     public void addDrinkToOrder(Order myOrder, Dish dishToAdd) {
         myOrder.getDishes().add(dishToAdd);
-        //Code om ingredienten voorraad aan te passen
+        addDishStock(myOrder.getDishes());
     }
     //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Dish die verwijderd moet worden.
     public void findOrderToRemoveDishFrom(int tableNumber, Guest g, Dish dishToAdd) {
@@ -192,7 +245,7 @@ public class Order {
                 }
                 index++;
             }
-        //Code om ingredienten voorraad aan te passen
+        removeDishStock(myOrder.getDishes());
     }
     //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Dish toe te voegen, Dish te verwijderen.
     public void findOrderToChangeDishIn(int tableNumber, Guest g, Dish dishToAdd, Dish dishToRemove) {
@@ -208,9 +261,9 @@ public class Order {
             for (Dish dish : myOrder.getDishes()) {
                 if (dishToRemove.equals(dish)) {
                     myOrder.getDishes().remove(index);
-                    //Code om ingredienten voorraad aan te passen
+                    removeDishStock(myOrder.getDishes());
                     myOrder.getDishes().add(dishToAdd);
-                    //Code om ingredienten voorraad aan te passen
+                    addDishStock(myOrder.getDishes());
                     break;
                 }
                 index++;
@@ -232,16 +285,16 @@ public class Order {
     //Add Special to Order
     public void addSpecialToOrder(Order myOrder, Special specialToAdd) {
         myOrder.getSpecials().add(specialToAdd);
-        //Code om ingredienten voorraad aan te passen
+        addSpecialStock(myOrder.getSpecials());
     }
     //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Special die verwijderd moet worden.
-    public void findOrderToRemoveSpecialFrom(int tableNumber, Guest g, Special specialToAdd) {
-        for (Order correctOrder : Restaurant.getOrderList()) {
-            if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
-                removeSpecialFromOrder(correctOrder, specialToAdd);
+        public void findSpecialToRemoveSpecialFrom(int tableNumber, Guest g, Special specialToAdd) {
+            for (Order correctOrder : Restaurant.getOrderList()) {
+                if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
+                    removeSpecialFromOrder(correctOrder, specialToAdd);
+                }
             }
         }
-    }
     //Remove a Special from order
     public void removeSpecialFromOrder(Order myOrder, Special specialToRemove) {
         int index = 0;
@@ -252,7 +305,7 @@ public class Order {
             }
             index++;
         }
-        //Code om ingredienten voorraad aan te passen
+        myOrder.removeSpecialStock(myOrder.getSpecials());
     }
     //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Special toe te voegen, Special te verwijderen.
     public void findOrderToChangeSpecialIn(int tableNumber, Guest g, Special specialToAdd, Special specialToRemove) {
@@ -268,9 +321,9 @@ public class Order {
         for (Special special : myOrder.getSpecials()) {
             if (specialToRemove.equals(special)) {
                 myOrder.getSpecials().remove(index);
-                //Code om ingredienten voorraad aan te passen
+                removeSpecialStock(myOrder.getSpecials());
                 myOrder.getSpecials().add(specialToAdd);
-                //Code om ingredienten voorraad aan te passen
+                addSpecialStock(myOrder.getSpecials());
                 break;
             }
             index++;
