@@ -86,5 +86,15 @@ public class Reservation {
             // Gaat in de lijst verder zoeken index +1
         }
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "reservationTime=" + reservationTime +
+                ", numberOfPeople=" + numberOfPeople +
+                ", guest=" + guest +
+                ", tableNumber=" + tableNumber +
+                '}';
+    }
 }
 

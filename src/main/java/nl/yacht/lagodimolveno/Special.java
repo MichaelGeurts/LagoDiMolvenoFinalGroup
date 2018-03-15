@@ -41,6 +41,7 @@ public class Special {
         Restaurant.addSpecialToList(this);
     }
 
+    //region edit
     public void editSpecial(Special special, Double price, List<Dish> dishes, String name){
         for(Special s : Restaurant.getSpecialList()){
             if(s.equals(special)){
@@ -74,6 +75,7 @@ public class Special {
             }
         }
     }
+    //endregion
 
     public void deleteSpecial(Special special){
         int index = 0;
@@ -83,5 +85,14 @@ public class Special {
             }
             index++;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Special{" +
+                "name='" + name + '\'' +
+                ", dishes=" + dishes +
+                ", price=" + price +
+                '}';
     }
 }

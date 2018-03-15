@@ -72,5 +72,15 @@ public class Guest {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "Guest{" +
+                "name='" + name + '\'' +
+                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", hasReservation=" + hasReservation +
+                ", isHotelGuest=" + isHotelGuest +
+                '}';
+    }
 }
 

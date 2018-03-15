@@ -7,6 +7,19 @@ package nl.yacht.lagodimolveno;
  */
 public class App {
     public static void main(String[] args) {
-        GenerateTestData.generate();
+        Restaurant res = new Restaurant();
+        GenerateTestData.generate(res);
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
