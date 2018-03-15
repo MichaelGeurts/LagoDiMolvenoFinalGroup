@@ -1,22 +1,71 @@
 package nl.yacht.lagodimolveno;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GenerateTestData {
 
-    public static void generate() {
-        Restaurant a = new Restaurant();
+    public static void generate(Restaurant a) {
         a.initAllLists();
         generateDrinkList(a);
         generateIngredientList(a);
         generateDishList(a);
         generateTableList(a);
+        generateSpecialList(a);
+        generateReservationList(a);
         sumSomeCosts(a);
+
+    }
+
+    private static void generateReservationList(Restaurant a) {
+    LocalDateTime.now();
+        for(int i = 1; i < 10; i++){
+            int testint = new Random().nextInt(4) + 1;
+            int numberOfPerson = new Random().nextInt(8) + 1;
+            Reservation res = new Reservation(LocalDateTime.now(), numberOfPerson, new Guest("Gereserveerde " + i, "061000000000", false, false););
+        }
+
+        for(Reservation r : a.getReservationList()){
+            System.out.println(r);
+        }
+    }
+
+    private static void generateSpecialList(Restaurant a) {
+        List<Dish> starterDishes = new ArrayList<>();
+        List<Dish> mainDishes = new ArrayList<>();
+        List<Dish> dessertDishes = new ArrayList<>();
+
+        for (Dish d : a.getDishList()) {
+            switch (d.getCourseType()) {
+                case MAIN:
+                    mainDishes.add(d);
+                    break;
+                case DESSERT:
+                    dessertDishes.add(d);
+                    break;
+                case STARTER:
+                    starterDishes.add(d);
+                    break;
+            }
+        }
+        for (int i = 1; i < 6; i++) {
+            List<Dish> specialDishes = new ArrayList<>();
+            specialDishes.add(starterDishes.get(new Random().nextInt(starterDishes.size())));
+            specialDishes.add(mainDishes.get(new Random().nextInt(mainDishes.size())));
+            specialDishes.add(dessertDishes.get(new Random().nextInt(dessertDishes.size())));
+            Special s = new Special("Special nummer " + i, specialDishes, (double) (new Random().nextInt(80) + 1));
+        }
+
+        for(Special spec : a.getSpecialList()){
+            System.out.println(spec);
+        }
     }
 
     private static void generateTableList(Restaurant a) {
-        for(int i = 1; i < 101; i++){
+        for (int i = 1; i < 101; i++) {
             int testint = new Random().nextInt(4) + 1;
             int numberOfSeats = 0;
             boolean isOccupied = false;
@@ -25,7 +74,7 @@ public class GenerateTestData {
                 isOccupied = true;
             }
 
-            switch(testint) {
+            switch (testint) {
                 case 1:
                     numberOfSeats = 2;
                     break;
@@ -39,10 +88,10 @@ public class GenerateTestData {
                     numberOfSeats = 8;
                     break;
             }
-            Table t = new Table(i,numberOfSeats,isOccupied);
+            Table t = new Table(i, numberOfSeats, isOccupied);
         }
 
-        for(Table t: a.getTableList()){
+        for (Table t : a.getTableList()) {
             System.out.println(t);
         }
     }
@@ -70,10 +119,16 @@ public class GenerateTestData {
     public static void generateDishList(Restaurant a) {
 
         for (int i = 1; i < 21; i++) {
-            Dish d = new Dish("Dish nummer" + i, "Andere beschrijving", a.getIngredientList(),
-                    new Random().nextInt(i) + 1, CourseType.values()[new Random().nextInt(CourseType.values().length)],
+            List<Ingredient> lijst = new ArrayList<>();
+
+            for (int it = 0; it < new Random().nextInt(7) + 1; it++) {
+                lijst.add(a.getIngredientList().get(new Random().nextInt(19)));
+            }
+
+
+            Dish d = new Dish("Dish nummer" + i, "Andere beschrijving", lijst,
+                    new Random().nextInt(50) + 1, CourseType.values()[new Random().nextInt(CourseType.values().length)],
                     DishType.values()[new Random().nextInt(DishType.values().length)], true);
-            a.getDishList().add(d);
         }
 
         for (Dish d : a.getDishList()) {
@@ -85,7 +140,7 @@ public class GenerateTestData {
         for (int i = 1; i < 21; i++) {
             int testint = 1;
             boolean isAllergen = false;
-            if (new Random().nextInt(2) == testint) {
+            if (new Random().nextInt(4) == testint) {
                 isAllergen = true;
             }
             Ingredient in = new Ingredient("Ingredient nummer" + i, isAllergen, null, new Random().nextInt(100), new Random().nextInt(i) + 1);
@@ -101,6 +156,7 @@ public class GenerateTestData {
         sum(a.getIngredientList());
         sum(a.getDishList());
         sum(a.getDrinkList());
+        sum(a.getSpecialList());
     }
 
     private static double sum(List<?> lijstje) {
@@ -117,6 +173,9 @@ public class GenerateTestData {
                     break;
                 case "Dish":
                     d = d + ((Dish) o).getPrice();
+                    break;
+                case "Special":
+                    d = d + ((Special) o).getPrice();
                     break;
             }
         }

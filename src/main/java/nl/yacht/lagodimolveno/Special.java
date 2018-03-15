@@ -86,4 +86,13 @@ public class Special {
             index++;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Special{" +
+                "name='" + name + '\'' +
+                ", dishes=" + dishes +
+                ", price=" + price +
+                '}';
+    }
 }
