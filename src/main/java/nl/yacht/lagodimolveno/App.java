@@ -219,7 +219,7 @@ public class App {
         List<Dish> returnToOrderDishes = new ArrayList<>();
         for (Dish d : restaurant.getDishList()) {
             if (counter <= 2) {
-                if (1 == new Random().nextInt(4)) {
+                if (1 == (new Random().nextInt(5) +1)) {
                     returnToOrderDishes.add(d);
                     counter++;
                 }
@@ -233,7 +233,7 @@ public class App {
     private static List<Special> selectSpecials(Restaurant restaurant) {
         List<Special> returnToOrderDishes = new ArrayList<>();
         for (Special s : restaurant.getSpecialList()) {
-            if (1 == new Random().nextInt(2)) {
+            if (1 == (new Random().nextInt(3) + 1)) {
                 returnToOrderDishes.add(s);
             }
         }
@@ -245,7 +245,7 @@ public class App {
         List<Drink> returnToOrderDrinks = new ArrayList<>();
         for (Drink d : restaurant.getDrinkList()) {
             if (counter <= 3) {
-                if (1 == new Random().nextInt(4)) {
+                if (1 == (new Random().nextInt(5) + 1)) {
                     returnToOrderDrinks.add(d);
                     counter++;
                 }
