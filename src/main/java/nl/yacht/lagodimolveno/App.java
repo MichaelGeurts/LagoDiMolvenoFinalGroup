@@ -23,8 +23,105 @@ public class App {
         methodeDemoMichael(restaurant);
     }
 
+    //region Michael
     private static void methodeDemoMichael(Restaurant restaurant) {
+        List<Dish> dishesFromRestaurant = restaurant.getDishList();
+        List<Ingredient> ingredientsFromRestaurant = restaurant.getIngredientList();
+        List<Special> specialsFromRestaurant = restaurant.getSpecialList();
+
+        dishLogica(dishesFromRestaurant, ingredientsFromRestaurant);
+        System.out.println("");
+        specialLogica(specialsFromRestaurant, dishesFromRestaurant);
     }
+
+    private static void specialLogica(List<Special> specialsFromRestaurant, List<Dish> dishesFromRestaurant) {
+        Special s = specialsFromRestaurant.get(0);
+        System.out.println(s.getName() + " heeft de volgende gerechten ");
+        for(Dish d : s.getDishes()){
+            System.out.println(d.getName());
+        }
+        System.out.println("");
+        addDish(s,dishesFromRestaurant);
+        System.out.println("");
+        editDish(s, dishesFromRestaurant);
+        System.out.println("");
+        removeDish(s, dishesFromRestaurant);
+    }
+
+    private static void removeDish(Special s, List<Dish> dishesFromRestaurant) {
+        System.out.println("We verwijderen het " + s.getDishes().get(0).getName());
+        s.editSpecial(s,s.getDishes().get(0), null);
+        System.out.println("");
+        System.out.println("Nu bevat het gerecht de volgende gerechten: ");
+        for(Dish d : s.getDishes()){
+            System.out.println(d.getName());
+        }
+    }
+
+    private static void editDish(Special s, List<Dish> dishesFromRestaurant) {
+        System.out.println("We passen het " + s.getDishes().get(0).getName() + " aan naar " + dishesFromRestaurant.get(9).getName());
+        s.editSpecial(s,s.getDishes().get(0), dishesFromRestaurant.get(9));
+        System.out.println("");
+        System.out.println("Nu bevat het gerecht de volgende gerechten: ");
+        for(Dish d : s.getDishes()){
+            System.out.println(d.getName());
+        }
+    }
+
+    private static void addDish(Special s, List<Dish> dishesFromRestaurant) {
+        System.out.println("We voegen het " + dishesFromRestaurant.get(4).getName() + " toe");
+        s.addDishToSpecial(s,dishesFromRestaurant.get(4));
+        System.out.println("");
+        System.out.println("Nu bevat het gerecht de volgende ingredienten: ");
+        for(Dish d : s.getDishes()){
+            System.out.println(d.getName());
+        }
+    }
+
+    private static void dishLogica(List<Dish> dishesFromRestaurant, List<Ingredient>ingredientsFromRestaurant ) {
+        Dish d = dishesFromRestaurant.get(2);
+        System.out.println(d.getName() + " heeft de volgende ingredienten " );
+        for(Ingredient i : d.getIngredients()){
+            System.out.println(i.getName());
+        }
+        System.out.println("");
+        addIngredient(d, ingredientsFromRestaurant);
+        System.out.println("");
+        editIngredient(d, ingredientsFromRestaurant);
+        System.out.println("");
+        removeIngredient(d, ingredientsFromRestaurant);
+    }
+
+    private static void removeIngredient(Dish d, List<Ingredient> ingredientsFromRestaurant) {
+        System.out.println("We verwijderen het " + d.getIngredients().get(0).getName());
+        d.editIngredient(d,d.getIngredients().get(0), null);
+        System.out.println("");
+        System.out.println("Nu bevat het gerecht de volgende ingredienten: ");
+        for(Ingredient i : d.getIngredients()){
+            System.out.println(i.getName());
+        }
+    }
+
+    private static void editIngredient(Dish d, List<Ingredient> ingredientsFromRestaurant) {
+        System.out.println("We passen het " + d.getIngredients().get(0).getName() + " aan naar " + ingredientsFromRestaurant.get(9).getName());
+        d.editIngredient(d,d.getIngredients().get(0),ingredientsFromRestaurant.get(9));
+        System.out.println("");
+        System.out.println("Nu bevat het gerecht de volgende ingredienten: ");
+        for(Ingredient i : d.getIngredients()){
+            System.out.println(i.getName());
+        }
+    }
+
+    private static void addIngredient(Dish d, List<Ingredient> ingredientsFromRestaurant) {
+        System.out.println("We voegen het " + ingredientsFromRestaurant.get(4).getName() + " toe");
+        d.addIngredient(d,ingredientsFromRestaurant.get(4));
+        System.out.println("");
+        System.out.println("Nu bevat het gerecht de volgende ingredienten: ");
+        for(Ingredient i : d.getIngredients()){
+            System.out.println(i.getName());
+        }
+    }
+    //endregion
 
     //region Jurgen
     private static void methodeDemoJurgen(Restaurant restaurant) {
@@ -44,7 +141,7 @@ public class App {
         System.out.println("");
         printTableList(restaurant, "---De tafels voordat er een reservering wordt gemaakt ---");
         System.out.println("");
-        Reservation res = makeReservation(g, 5);
+        Reservation res = makeReservation(g, 3);
         System.out.println(g.getName() + " heeft gereserveerd op " + res.getReservationTime() + "  voor " + res.getNumberOfPeople() + " personen");
         System.out.println("Doordat er " + res.getNumberOfPeople() + " personen zijn, is er tafel " + res.getTableNumber() + " gereserveerd want deze tafel was vrij en heeft " + getNumberOfSeatsOfReserverdTable(res.getTableNumber(), restaurant) + " stoelen");
         System.out.println("");
@@ -110,15 +207,24 @@ public class App {
         Order order = new Order(selectDrinks(restaurant), selectDishes(restaurant), selectSpecials(restaurant), res.getTableNumber(), g);
         System.out.println(g.getName() + " Bestelt het volgende: ");
         printOrder(order);
-        System.out.println("Er wordt 1 drankje toegevoegd aan de order namelijk: " + restaurant.getDrinkList().get(9).getName());
-        order.addDrinkToOrder(order, restaurant.getDrinkList().get(9));
+        toevoegen(restaurant, order);
+        wijzigen(restaurant, order);
+        verwijderen(restaurant, order);
+    }
+
+    private static void verwijderen(Restaurant restaurant, Order order) {
+        System.out.println("Er wordt 1 drankje verwijderd van de order namelijk: " + order.getDrinks().get(0).getName());
+        order.removeDrinkFromOrder(order,order.getDrinks().get(0),1 );
         printOrder(order);
-        System.out.println("Er wordt 1 gerecht toegevoegd aan de order namelijk: " + restaurant.getDishList().get(4).getName());
-        order.addDishToOrder(order, restaurant.getDishList().get(4));
+        System.out.println("Er wordt 1 gerecht verwijderd van de order namelijk: " + order.getDishes().get(0).getName());
+        order.removeDishFromOrder(order,order.getDishes().get(0) );
         printOrder(order);
-        System.out.println("Er wordt 1 special toegevoegd aan de order namelijk: " + restaurant.getSpecialList().get(0).getName());
-        order.addSpecialToOrder(order, restaurant.getSpecialList().get(1));
+        System.out.println("Er wordt 1 special verwijderd van de order namelijk: " + order.getSpecials().get(0).getName());
+        order.removeSpecialFromOrder(order,order.getSpecials().get(0));
         printOrder(order);
+    }
+
+    private static void wijzigen(Restaurant restaurant, Order order) {
         System.out.println("Er wordt 1 drankje gewijzigd van de order namelijk: " + order.getDrinks().get(0).getName() + " wordt: " + restaurant.getDrinkList().get(2).getName());
         order.changeDrinkInOrder(order,restaurant.getDrinkList().get(2), order.getDrinks().get(0), 1);
         printOrder(order);
@@ -128,14 +234,17 @@ public class App {
         System.out.println("Er wordt 1 special gewijzigd van de order namelijk: " + order.getSpecials().get(0).getName() + " wordt: " + restaurant.getSpecialList().get(1).getName());
         order.changeSpecialInOrder(order,restaurant.getSpecialList().get(1), order.getSpecials().get(0));
         printOrder(order);
-        System.out.println("Er wordt 1 drankje verwijderd van de order namelijk: " + order.getDrinks().get(0).getName());
-        order.removeDrinkFromOrder(order,order.getDrinks().get(0),1 );
+    }
+
+    private static void toevoegen(Restaurant restaurant, Order order) {
+        System.out.println("Er wordt 1 drankje toegevoegd aan de order namelijk: " + restaurant.getDrinkList().get(9).getName());
+        order.addDrinkToOrder(order, restaurant.getDrinkList().get(9));
         printOrder(order);
-        System.out.println("Er wordt 1 gerecht verwijderd van de order namelijk: " + order.getDishes().get(0).getName());
-        order.removeDishFromOrder(order,order.getDishes().get(0) );
+        System.out.println("Er wordt 1 gerecht toegevoegd aan de order namelijk: " + restaurant.getDishList().get(4).getName());
+        order.addDishToOrder(order, restaurant.getDishList().get(4));
         printOrder(order);
-        System.out.println("Er wordt 1 special verwijderd van de order namelijk: " + order.getSpecials().get(0).getName());
-        order.removeSpecialFromOrder(order,order.getSpecials().get(0));
+        System.out.println("Er wordt 1 special toegevoegd aan de order namelijk: " + restaurant.getSpecialList().get(0).getName());
+        order.addSpecialToOrder(order, restaurant.getSpecialList().get(1));
         printOrder(order);
     }
 

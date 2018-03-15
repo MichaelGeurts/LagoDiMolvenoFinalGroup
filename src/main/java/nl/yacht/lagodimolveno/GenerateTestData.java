@@ -24,8 +24,8 @@ public class GenerateTestData {
     LocalDateTime.now();
         for(int i = 1; i < 10; i++){
             int testint = new Random().nextInt(4) + 1;
-            int numberOfPerson = new Random().nextInt(8) + 1;
-            Reservation res = new Reservation(LocalDate.now(), numberOfPerson, new Guest("Gereserveerde " + i, "061000000000", false, false));
+            int numberOfPerson = new Random().nextInt(5) + 1;
+            Reservation res = new Reservation(LocalDate.now(), numberOfPerson, new Guest("Gereserveerde " + i, "061000000000", true, false));
         }
     }
 
@@ -105,8 +105,8 @@ public class GenerateTestData {
         for (int i = 1; i < 11; i++) {
             List<Ingredient> lijst = new ArrayList<>();
 
-            for (int it = 0; it < new Random().nextInt(7) + 1; it++) {
-                lijst.add(a.getIngredientList().get(new Random().nextInt(19)));
+            for (int it = 0; it < new Random().nextInt(10) + 1; it++) {
+                lijst.add(a.getIngredientList().get(new Random().nextInt(20)));
             }
 
 
@@ -117,7 +117,7 @@ public class GenerateTestData {
     }
 
     public static void generateIngredientList(Restaurant a) {
-        for (int i = 1; i < 11; i++) {
+        for (int i = 1; i < 21; i++) {
             int testint = 1;
             boolean isAllergen = false;
             if (new Random().nextInt(4) == testint) {

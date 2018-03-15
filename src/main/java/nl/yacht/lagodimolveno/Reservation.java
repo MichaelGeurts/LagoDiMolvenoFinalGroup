@@ -72,7 +72,6 @@ public class Reservation {
             }
         }
         if(!isRightTableAvailable){
-            System.out.println("Er is geen tafel voor het exacte aantal personen, misschien is er een tafel met meer plaatsen...");
             checkNumberOfPeople(numberOfPeople +2, res );
         }
         Restaurant.getReservationList().add(res);

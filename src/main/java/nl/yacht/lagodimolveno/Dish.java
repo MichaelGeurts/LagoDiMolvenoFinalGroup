@@ -103,5 +103,23 @@ public class Dish {
         }
         return false;
     }
+
+    public void editIngredient(Dish d, Ingredient toRemove, Ingredient toAdd) {
+        int counter = 0;
+        for (Ingredient ing : d.getIngredients()) {
+            if (ing.getName().equals(toRemove.getName())) {
+                d.getIngredients().remove(counter);
+                if (toAdd != null) {
+                    d.getIngredients().add(toAdd);
+                }
+                break;
+            }
+            counter++;
+        }
+    }
+
+    public void addIngredient(Dish d, Ingredient i) {
+        d.getIngredients().add(i);
+    }
 }
 

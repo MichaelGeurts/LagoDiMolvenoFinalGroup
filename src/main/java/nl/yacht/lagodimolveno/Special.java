@@ -75,6 +75,24 @@ public class Special {
             }
         }
     }
+
+    public void editSpecial(Special special, Dish toRemove, Dish toAdd){
+        int counter = 0;
+        for (Dish dish : special.getDishes()) {
+            if (dish.getName().equals(toRemove.getName())) {
+                special.getDishes().remove(counter);
+                if (toAdd != null) {
+                    special.getDishes().add(toAdd);
+                }
+                break;
+            }
+            counter++;
+        }
+    }
+
+    public void addDishToSpecial(Special special, Dish d){
+        special.getDishes().add(d);
+    }
     //endregion
 
     public void deleteSpecial(Special special){
