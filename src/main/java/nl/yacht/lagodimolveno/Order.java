@@ -218,12 +218,12 @@ public class Order {
     public void findOrderToAddDishTo(int tableNumber, Guest g, Dish dishToAdd) {
         for (Order correctOrder : Restaurant.getOrderList()) {
             if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
-                addDrinkToOrder(correctOrder, dishToAdd);
+                addDishToOrder(correctOrder, dishToAdd);
             }
         }
     }
     //Add Dish to Order
-    public void addDrinkToOrder(Order myOrder, Dish dishToAdd) {
+    public void addDishToOrder(Order myOrder, Dish dishToAdd) {
         myOrder.getDishes().add(dishToAdd);
         addDishStock(myOrder.getDishes());
     }
@@ -231,16 +231,16 @@ public class Order {
     public void findOrderToRemoveDishFrom(int tableNumber, Guest g, Dish dishToAdd) {
         for (Order correctOrder : Restaurant.getOrderList()) {
             if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
-                removeDrinkFromOrder(correctOrder, dishToAdd);
+                removeDishFromOrder(correctOrder, dishToAdd);
             }
         }
     }
     //Remove a Dish from order
-    public void removeDrinkFromOrder(Order myOrder, Dish dishToRemove) {
+    public void removeDishFromOrder(Order myOrder, Dish dishToRemove) {
             int index = 0;
             for (Dish dish : myOrder.getDishes()) {
                 if (dishToRemove.equals(dish)) {
-                    myOrder.getDrinks().remove(index);
+                    myOrder.getDishes().remove(index);
                     break;
                 }
                 index++;

@@ -27,10 +27,6 @@ public class GenerateTestData {
             int numberOfPerson = new Random().nextInt(8) + 1;
             Reservation res = new Reservation(LocalDate.now(), numberOfPerson, new Guest("Gereserveerde " + i, "061000000000", false, false));
         }
-
-        for(Reservation r : a.getReservationList()){
-            System.out.println(r);
-        }
     }
 
     private static void generateSpecialList(Restaurant a) {
@@ -51,21 +47,17 @@ public class GenerateTestData {
                     break;
             }
         }
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 3; i++) {
             List<Dish> specialDishes = new ArrayList<>();
             specialDishes.add(starterDishes.get(new Random().nextInt(starterDishes.size())));
             specialDishes.add(mainDishes.get(new Random().nextInt(mainDishes.size())));
             specialDishes.add(dessertDishes.get(new Random().nextInt(dessertDishes.size())));
             Special s = new Special("Special nummer " + i, specialDishes, (double) (new Random().nextInt(80) + 1));
         }
-
-        for(Special spec : a.getSpecialList()){
-            System.out.println(spec);
-        }
     }
 
     private static void generateTableList(Restaurant a) {
-        for (int i = 1; i < 50; i++) {
+        for (int i = 1; i < 30; i++) {
             int testint = new Random().nextInt(4) + 1;
             int numberOfSeats = 0;
             boolean isOccupied = true;
@@ -90,15 +82,11 @@ public class GenerateTestData {
             }
             Table t = new Table(i, numberOfSeats, isOccupied);
         }
-
-        for (Table t : a.getTableList()) {
-            System.out.println(t);
-        }
     }
 
     public static void generateDrinkList(Restaurant a) {
 
-        for (int i = 1; i < 21; i++) {
+        for (int i = 1; i < 11; i++) {
             int testint = 1;
             boolean ishot = false;
             boolean isalcohol = false;
@@ -110,15 +98,11 @@ public class GenerateTestData {
             }
             Drink d = new Drink("Drank nummer" + i, "Hier komt beschrijving", ishot, isalcohol, new Random().nextInt(i) + 1, new Random().nextInt(i) + 1, true);
         }
-
-        for (Drink d : a.getDrinkList()) {
-            System.out.println(d);
-        }
     }
 
     public static void generateDishList(Restaurant a) {
 
-        for (int i = 1; i < 21; i++) {
+        for (int i = 1; i < 11; i++) {
             List<Ingredient> lijst = new ArrayList<>();
 
             for (int it = 0; it < new Random().nextInt(7) + 1; it++) {
@@ -130,14 +114,10 @@ public class GenerateTestData {
                     new Random().nextInt(50) + 1, CourseType.values()[new Random().nextInt(CourseType.values().length)],
                     DishType.values()[new Random().nextInt(DishType.values().length)], true);
         }
-
-        for (Dish d : a.getDishList()) {
-            System.out.println(d);
-        }
     }
 
     public static void generateIngredientList(Restaurant a) {
-        for (int i = 1; i < 21; i++) {
+        for (int i = 1; i < 11; i++) {
             int testint = 1;
             boolean isAllergen = false;
             if (new Random().nextInt(4) == testint) {
@@ -145,10 +125,6 @@ public class GenerateTestData {
             }
             Ingredient in = new Ingredient("Ingredient nummer" + i, isAllergen, null, new Random().nextInt(100), new Random().nextInt(i) + 1);
             a.getIngredientList().add(in);
-        }
-
-        for (Ingredient i : a.getIngredientList()) {
-            System.out.println(i);
         }
     }
 
@@ -179,7 +155,6 @@ public class GenerateTestData {
                     break;
             }
         }
-        System.out.println("Sum of " + s + " :€" + d);
         return d;
     }
 }
