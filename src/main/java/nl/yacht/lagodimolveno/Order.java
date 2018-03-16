@@ -145,6 +145,7 @@ public class Order {
             }
         }
     }
+
     /*
      * Hieronder staan de Drankjes
      */
@@ -163,10 +164,10 @@ public class Order {
         addDrinkStock(myOrder.getDrinks());
     }
     //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Drink die verwijderd moet worden en aantal te verwijderen.
-    public void findOrderToRemoveDrinkFrom(int tableNumber, Guest g, Drink drinkToAdd, int amountToRemove) {
+    public void findOrderToRemoveDrinkFrom(int tableNumber, Guest g, Drink drinkToRemove, int amountToRemove) {
         for (Order correctOrder : Restaurant.getOrderList()) {
             if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
-                removeDrinkFromOrder(correctOrder, drinkToAdd, amountToRemove);
+                removeDrinkFromOrder(correctOrder, drinkToRemove, amountToRemove);
             }
         }
     }
@@ -213,30 +214,29 @@ public class Order {
      * Hieronder staan de Dishes
      */
 
-
     //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Dish die toegevoegd moet worden.
     public void findOrderToAddDishTo(int tableNumber, Guest g, Dish dishToAdd) {
         for (Order correctOrder : Restaurant.getOrderList()) {
             if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
-                addDrinkToOrder(correctOrder, dishToAdd);
+                addDishToOrder(correctOrder, dishToAdd);
             }
         }
     }
     //Add Dish to Order
-    public void addDrinkToOrder(Order myOrder, Dish dishToAdd) {
+    public void addDishToOrder(Order myOrder, Dish dishToAdd) {
         myOrder.getDishes().add(dishToAdd);
         addDishStock(myOrder.getDishes());
     }
     //Juiste Order object getter aan de hand van tablenumber en Guest g. Verdere input: Dish die verwijderd moet worden.
-    public void findOrderToRemoveDishFrom(int tableNumber, Guest g, Dish dishToAdd) {
+    public void findOrderToRemoveDishFrom(int tableNumber, Guest g, Dish dishToRemove) {
         for (Order correctOrder : Restaurant.getOrderList()) {
             if (correctOrder.getTableNumber() == tableNumber && correctOrder.getGuest().getName().equalsIgnoreCase(g.getName())) {
-                removeDrinkFromOrder(correctOrder, dishToAdd);
+                removeDishFromOrder(correctOrder, dishToRemove);
             }
         }
     }
     //Remove a Dish from order
-    public void removeDrinkFromOrder(Order myOrder, Dish dishToRemove) {
+    public void removeDishFromOrder(Order myOrder, Dish dishToRemove) {
             int index = 0;
             for (Dish dish : myOrder.getDishes()) {
                 if (dishToRemove.equals(dish)) {
