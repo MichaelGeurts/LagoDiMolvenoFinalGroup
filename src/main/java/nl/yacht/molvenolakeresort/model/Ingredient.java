@@ -1,15 +1,25 @@
-package nl.yacht.lagodimolveno;
-
-import java.util.List;
+package nl.yacht.molvenolakeresort.model;
 
 public class Ingredient {
+
     private String name;
     private boolean isAllergen;
+    private boolean isStock;
     private Distributor distributor;
     private int numberOfStock;
     private double costPrice;
 
-    //region getters and setters
+    public Ingredient(){}
+
+    public Ingredient(String name, boolean isAllergen, boolean isStock, Distributor distributor, int numberOfStock, double costPrice) {
+        this.name = name;
+        this.isAllergen = isAllergen;
+        this.isStock = isStock;
+        this.distributor = distributor;
+        this.numberOfStock = numberOfStock;
+        this.costPrice = costPrice;
+    }
+
     public String getName() {
         return name;
     }
@@ -24,6 +34,14 @@ public class Ingredient {
 
     public void setAllergen(boolean allergen) {
         isAllergen = allergen;
+    }
+
+    public boolean isStock() {
+        return isStock;
+    }
+
+    public void setStock(boolean stock) {
+        isStock = stock;
     }
 
     public Distributor getDistributor() {
@@ -48,28 +66,5 @@ public class Ingredient {
 
     public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
-    }
-
-    //endregion
-
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "name='" + name + '\'' +
-                ", isAllergen=" + isAllergen +
-                ", distributor=" + distributor +
-                ", numberOfStock=" + numberOfStock +
-                ", costPrice=" + costPrice +
-                '}';
-    }
-
-    public Ingredient(String name, boolean isAllergen, Distributor distributor, int numberOfStock, double costPrice) {
-        this.name = name;
-        this.isAllergen = isAllergen;
-        this.distributor = distributor;
-        this.numberOfStock = numberOfStock;
-        this.costPrice = costPrice;
-
-        Restaurant.addIngredientToList(this);
     }
 }

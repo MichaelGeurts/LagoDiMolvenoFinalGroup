@@ -1,8 +1,9 @@
-package nl.yacht.lagodimolveno;
+package nl.yacht.molvenolakeresort.model;
 
 import java.util.List;
 
 public class Distributor {
+
     private String name;
     private String telephoneNumber;
     private String email;
@@ -48,4 +49,5 @@ public class Distributor {
         this.email = email;
         this.ingredients = ingredientList;
     }
+
 }
